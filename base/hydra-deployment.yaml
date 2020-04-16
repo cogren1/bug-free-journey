@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.20.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: hydra
+  name: hydra
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.20.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: hydra
+    spec:
+      containers:
+      - args:
+        - serve
+        - all
+        - --dangerous-force-http
+        env:
+        - name: DATABASE_URL
+          value: postgres://hydra:secret@$(POSTGRESD_SERVICE_HOST):5432/hydra?sslmode=disable
+        - name: OAUTH2_CONSENT_URL
+          value: http://localhost:3000/consent
+        - name: OAUTH2_ISSUER_URL
+          value: http://localhost:4444
+        - name: OAUTH2_LOGIN_URL
+          value: http://localhost:3000/login
+        - name: OAUTH2_SHARE_ERROR_DEBUG
+          value: "1"
+        - name: OIDC_SUBJECT_TYPES_SUPPORTED
+          value: public,pairwise
+        - name: OIDC_SUBJECT_TYPE_PAIRWISE_SALT
+          value: secretaadfioeur012938928349434
+        - name: SYSTEM_SECRET
+          value: secretaadfioeur01293892834
+        image: oryd/hydra:v1.3.2
+        name: hydra
+        ports:
+        - containerPort: 4444
+        - containerPort: 4445
+        - containerPort: 5555
+        resources: {}
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      io.kompose.service: hydra
+status: {}
+

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: hydra-migrate
+  name: hydra-migrate
+spec:
+  containers:
+  - args:
+    - migrate
+    - sql
+    - -e
+    - --yes
+    env:
+    - name: DATABASE_URL
+      value: postgres://hydra:secret@$(POSTGRESD_SERVICE_HOST):5432/hydra?sslmode=disable
+    image: oryd/hydra:v1.3.2
+    name: hydra-migrate
+    resources: {}
+  restartPolicy: OnFailure
+status: {}

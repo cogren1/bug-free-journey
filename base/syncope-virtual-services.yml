@@ -1,0 +1,22 @@
+#ingress rules for  oauth2 endpoint on port 4444
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hydra-client
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - hydra-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /admin/
+    rewrite:
+        uri: /
+    route:
+    - destination:
+        port:
+          number: 4445
+        host: hydra

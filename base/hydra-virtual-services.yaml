@@ -1,0 +1,50 @@
+# VirtualService for  oauth2 endpoint on port 4444
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hydra-auth
+  labels:
+    app: hydra-auth
+spec:
+  selector:
+      matchLabels:
+          app: hydra-public
+  hosts:
+  - "*"
+  gateways:
+  - hydra-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /auth/
+    rewrite:
+        uri: /
+    route:
+    - destination:
+        port:
+          number: 4444
+        host: hydra
+---
+# VirtualService for admin endpoint on port 4445. 
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hydra-client
+  labels:
+    app: hydra-client
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - hydra-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /admin/
+    rewrite:
+        uri: /
+    route:
+    - destination:
+        port:
+          number: 4445
+        host: hydra
