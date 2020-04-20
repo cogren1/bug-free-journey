@@ -11,3 +11,5 @@ resources:
 # - istio-gateway-config.yaml
 
 namespace: default
+
+# Take 1
