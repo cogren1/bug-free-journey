@@ -1,0 +1,19 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: '${ parameters.metadata_name }'
+  namespace: '${ parameters.namespace }'
+spec:
+  teamId: '${ parameters.team_id }'
+  volume:
+    storageClass: ebs-sc
+    size: '${ parameters.volume_size }Gi'
+  numberOfInstances: '${ #toInt( parameters.instances ) }'
+  users:
+    postgres:           # database owner
+    - superuser
+    - createdb
+  enableMasterLoadBalancer: false
+  enableReplicaLoadBalancer: false
+  postgresql:
+    version: "11"

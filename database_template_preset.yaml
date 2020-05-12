@@ -1,0 +1,19 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: 'postgres set test'
+  namespace: 'co_postgres_settest'
+spec:
+  teamId: 'infra'
+  volume:
+    storageClass: ebs-sc
+    size: '100Gi'
+  numberOfInstances: 3
+  users:
+    postgres:           # database owner
+    - superuser
+    - createdb
+  enableMasterLoadBalancer: false
+  enableReplicaLoadBalancer: false
+  postgresql:
+    version: "11"
