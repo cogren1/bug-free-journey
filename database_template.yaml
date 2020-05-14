@@ -1,3 +1,10 @@
+apiVersion: "v1"
+kind: Namespace
+metadata:
+  name: '${ parameters.namespace }'
+  labels:
+    name: '${ parameters.namespace }'
+---
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
