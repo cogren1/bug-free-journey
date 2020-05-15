@@ -1,7 +1,7 @@
 apiVersion: acid.zalan.do/v1
 kind: postgresql
 metadata:
-  name: '${parameters.metadata_name}'
+  name: '${parameters.team_id}-${parameters.pod_name_suffix}'
   namespace: '${parameters.namespace}'
   labels:
     team: '${parameters.team_id}'
