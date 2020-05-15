@@ -20,4 +20,4 @@ spec:
   databases:
     defaultdb: postgres
   postgresql:
-    version: "11"
+    version: "${parameters.postgres_version}"
