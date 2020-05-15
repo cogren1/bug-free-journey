@@ -1,15 +1,10 @@
-apiVersion: "v1"
-kind: Namespace
-metadata:
-  name: '${ parameters.namespace }'
-  labels:
-    name: '${ parameters.namespace }'
----
-apiVersion: "acid.zalan.do/v1"
+apiVersion: acid.zalan.do/v1
 kind: postgresql
 metadata:
   name: '${ parameters.metadata_name }'
   namespace: '${ parameters.namespace }'
+  labels:
+    team: '${ parameters.team_id }'
 spec:
   teamId: '${ parameters.team_id }'
   volume:
@@ -22,5 +17,7 @@ spec:
     - createdb
   enableMasterLoadBalancer: false
   enableReplicaLoadBalancer: false
+  databases:
+    defaultdb: postgres
   postgresql:
     version: "11"
