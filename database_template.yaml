@@ -19,6 +19,6 @@ spec:
   enableMasterLoadBalancer: false
   enableReplicaLoadBalancer: false
   databases:
-    defaultdb: '${parameters.defaultdb}'
+    '${parameters.defaultdb}': postgres
   postgresql:
     version: "${parameters.postgres_version}"
