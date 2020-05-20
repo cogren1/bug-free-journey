@@ -15,9 +15,10 @@ spec:
     postgres:           # database owner
     - superuser
     - createdb
+    appuser: []
   enableMasterLoadBalancer: false
   enableReplicaLoadBalancer: false
   databases:
-    defaultdb: postgres
+    defaultdb: '${parameters.defaultdb}'
   postgresql:
     version: "${parameters.postgres_version}"
