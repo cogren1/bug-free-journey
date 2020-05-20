@@ -11,14 +11,14 @@ spec:
     storageClass: ebs-sc
     size: '${parameters.volume_size}Gi'
   numberOfInstances: '${#toInt(parameters.instances)}'
-  users:
-    postgres:           # database owner
-    - superuser
-    - createdb
-    appuser: []
   enableMasterLoadBalancer: false
   enableReplicaLoadBalancer: false
-  databases:
-    '${parameters.defaultdb}': postgres
   postgresql:
     version: "${parameters.postgres_version}"
+  resources:
+    requests:
+      cpu: '${parameters.cpus_request}m'
+      memory: '${parameters.memory_request}Mi'
+    limits:
+      cpu: '${parameters.cpus_limit}m'
+      memory: '${parameters.memory_limit}Mi'
